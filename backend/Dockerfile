@@ -1,7 +1,13 @@
 FROM node:18-alpine
+
 WORKDIR /app
+
 RUN apk add --no-cache git
+
 COPY package*.json ./
+RUN npm config set git+https:// false
 RUN npm install
+
 COPY . .
+
 CMD ["npm", "start"]
