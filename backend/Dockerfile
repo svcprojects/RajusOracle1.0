@@ -1,18 +1,22 @@
 FROM node:18-alpine
 
-WORKDIR /app
-
-# Install git for npm to fetch from GitHub
+# Install git (needed to fetch packages from git URLs)
 RUN apk add --no-cache git
 
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the code
+# Copy the rest of the source code
 COPY . .
 
-# Expose port and start app
-EXPOSE 10000
+# Expose port
+EXPOSE 3000
+
+# Start the app
 CMD ["npm", "start"]
