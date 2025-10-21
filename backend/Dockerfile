@@ -2,17 +2,17 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Install git
+# Install git for npm to fetch from GitHub
 RUN apk add --no-cache git
 
-# Copy dependencies first
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy rest of the code
+# Copy the rest of the code
 COPY . .
 
-# Start server
+# Expose port and start app
+EXPOSE 10000
 CMD ["npm", "start"]
