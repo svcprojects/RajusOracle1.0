@@ -1,22 +1,19 @@
 FROM node:18-alpine
 
-# Install git (needed to fetch packages from git URLs)
+# Install git (needed for git+https dependencies)
 RUN apk add --no-cache git
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy package.json only to leverage Docker caching
+COPY package.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the source code
+# Copy the rest of the app
 COPY . .
 
-# Expose port
 EXPOSE 3000
 
-# Start the app
 CMD ["npm", "start"]
